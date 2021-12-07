@@ -11,4 +11,5 @@ COPY index.ts ./
 RUN npm run build
 
 ENV ADDRESS=0.0.0.0
-CMD ["npm", "run", "run"]
+CMD ["node", "./dist/index"]
+ 
