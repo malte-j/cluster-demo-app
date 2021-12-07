@@ -22,6 +22,15 @@ server.listen(port, address, (err, address) => {
   console.log(`Server listening at ${address}`)
 })
 
+process.on('SIGINT', () => {
+  console.info("Stopping...")
+  process.exit(0)
+})
+
+process.on('SIGTERM', () => {
+  console.info("Stopping...")
+  process.exit(0)
+})
 
 /*
 (c) by Thomas Konings
