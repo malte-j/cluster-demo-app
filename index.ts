@@ -8,8 +8,9 @@ let state = {
 }
 
 server.get('/', async (request, reply) => {
-  return  `💁‍♂️ ${state.name}\n`+
-          `👁️ ${state.views++}\n`
+  return `🎉 Hallo Microservice-Kurs! 🎉\n` +
+         `💁‍♂️ ${state.name}\n` +
+         `👁️ ${state.views++}\n`
 })
 
 const port = process.env.port || 8080;
