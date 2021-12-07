@@ -8,13 +8,12 @@ let state = {
 }
 
 server.get('/', async (request, reply) => {
-  return `💁‍♂️ ${state.name}
-👁️ ${state.views++}
-`
+  return  `💁‍♂️ ${state.name}\n`+
+          `👁️ ${state.views++}\n`
 })
 
 const port = process.env.port || 8080;
-const address = process.env.NODE_ENV == "production" ? "0.0.0.0" : "localhost";
+const address = process.env.ADDRESS ?? "localhost";
 server.listen(port, address, (err, address) => {
   if (err) {
     console.error(err)
