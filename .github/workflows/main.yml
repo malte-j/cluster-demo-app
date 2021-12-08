@@ -11,9 +11,8 @@ on:
       - 'v*'
 
 env:
-  REGISTRY: eu.gcr.io
-  PROJECT_ID: malte-cloud-run-demo
-  IMAGE_NAME: cluster-demo-app
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}
 
 
 jobs:
@@ -27,29 +26,18 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
 
-      - name: Setup Google Cloud Credentials
-        uses: google-github-actions/setup-gcloud@master
+      - name: Log in to the Container registry
+        uses: docker/login-action@f054a8b539a109f9f41c372932f1ae047eff08c9
         with:
-          service_account_key: ${{ secrets.DEPLOY_KEY }}
-          project_id: ${{ env.PROJECT_ID }}
-          export_default_credentials: true
-
-      # Make the Google Artifact Registry available to Docker
-      - name: Setup to use Google Artifact Registry
-        run: gcloud auth configure-docker $REGISTRY --quiet
-
-      # - name: Log in to the Container registry
-      #   uses: docker/login-action@f054a8b539a109f9f41c372932f1ae047eff08c9
-      #   with:
-      #     registry: ${{ env.REGISTRY }}
-      #     username: ${{ github.actor }}
-      #     password: ${{ secrets.GITHUB_TOKEN }}
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Extract metadata (tags, labels) for Docker
         id: meta
         uses: docker/metadata-action@v3
         with:
-          images: ${{ env.REGISTRY }}/${{ env.PROJECT_ID }}/${{ env.IMAGE_NAME }}
+          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
           tags: |
             type=ref,event=branch
             type=ref,event=pr
