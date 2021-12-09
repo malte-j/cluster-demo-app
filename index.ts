@@ -8,8 +8,7 @@ let state = {
 }
 
 server.get('/', async (request, reply) => {
-  return `🎉 Hallo Microservice-Kurs! 🎉\n` +
-         `💁‍♂️ ${state.name}\n` +
+  return `💁‍♂️ ${state.name}\n` +
          `👁️ ${state.views++}\n`
 })
 
