@@ -12,15 +12,22 @@ server.get("/", async (request) => {
   return `💁‍♂️ ${state.name}\n` + `👁️ ${state.views++}\n`;
 });
 
-const port = process.env.PORT || 8080;
+const port = parseInt(process.env.PORT ?? "8080");
 const host = process.env.HOST ?? "localhost";
-server.listen(port, host, (err, address) => {
-  if (err) {
-    console.error(err);
-    process.exit(1);
+
+server.listen(
+  {
+    port,
+    host,
+  },
+  (err) => {
+    if (err) {
+      console.error(err);
+      process.exit(1);
+    }
+    console.log(`Server listening at http://${host}:${port}`);
   }
-  console.log(`Server listening at ${address}`);
-});
+);
 
 process.on("SIGINT", () => {
   console.info("Stopping...");
