@@ -10,6 +10,5 @@ COPY tsconfig.json .
 COPY index.ts ./
 RUN npm run build
 
-ENV ADDRESS=0.0.0.0
+ENV HOST=0.0.0.0
 CMD ["node", "./dist/index"]
- 
