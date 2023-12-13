@@ -2,17 +2,7 @@ import fastify from "fastify";
 
 const server = fastify();
 
-const state = {
-  name: generateName(),
-  views: 0,
-};
-
-server.get("/", async (request) => {
-  console.log(`Request from ${request.ip}`);
-  return `💁‍♂️ ${state.name}\n` + `👁️ ${state.views++}\n`;
-});
-
-const port = parseInt(process.env.PORT ?? "8080");
+const port = parseInt(process.env.PORT ?? "8080", 10);
 const host = process.env.HOST ?? "localhost";
 
 server.listen(
@@ -28,6 +18,16 @@ server.listen(
     console.log(`Server listening at http://${host}:${port}`);
   }
 );
+
+const state = {
+  name: generateName(),
+  views: 0,
+};
+
+server.get("/", async (request) => {
+  console.log(`Request from ${request.ip}`);
+  return `💁‍♂️ ${state.name}\n` + `👁️ ${state.views++}\n`;
+});
 
 process.on("SIGINT", () => {
   console.info("Stopping...");
